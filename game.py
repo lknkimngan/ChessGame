@@ -4,7 +4,8 @@ from piece import Bishop
 from board import Board
 
 
-board = pygame.transform.scale(pygame.image.load(os.path.join("img", "board_alt.png")), (750,750))
+board = pygame.transform.scale(pygame.image.load(os.path.join(os.path.dirname(__file__), "img", "board_alt.png")), (750,750))
+
 rect = (113,113,525,525)
 
 #Ve man hinh ban co o vi tri 0,0
@@ -12,8 +13,7 @@ def redraw_gamewindow():
     global win, bo
 
     win.blit(board,(0,0))
-    bo.draw(win)
-    
+    bo.draw(win, bo.board)
     
     pygame.display.update()
 
@@ -48,7 +48,7 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 i,j =click(pos)
-                bo.board[j][i].selected = True
+                bo.select(i,j)
 
 # Thiet lap man hinh
 width = 750

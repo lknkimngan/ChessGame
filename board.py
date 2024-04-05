@@ -49,9 +49,22 @@ class Board:
         self.board[6] [7] = Pawn(6,7, "w")
         
 
-    def draw(self, win):
+    def draw(self, win, board):
         for i in range (self.rows):
             for j in range (self.cols):
                 if self.board[i][j] != 0:
-                    self.board[i][j].draw(win)
+                    self.board[i][j].draw(win, board)
 
+    def select(self, col, row):
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if self.board[i][j] != 0:
+                    self.board[i][j].selected = False
+        if self.board[row][col] != 0:
+            self.board[row][col].selected = True
+
+    def move(self, start, end):
+        removed = self.board[end[1]][end[0]]
+        self.board[end[1]][end[0]] = self.board[start[1]][start[0]]
+        self.board[start[1]][start[0]] = 0
+        return removed
