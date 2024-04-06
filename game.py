@@ -1,4 +1,4 @@
-import pygame
+import pygame  
 import os 
 from piece import Bishop
 from board import Board
@@ -13,7 +13,7 @@ def redraw_gamewindow():
     global win, bo
 
     win.blit(board,(0,0))
-    bo.draw(win, bo.board)
+    bo.draw(win)
     
     pygame.display.update()
 
@@ -43,10 +43,10 @@ def main():
                 quit()
                 pygame.quit()
 
-            if event.type == pygame.MOUSEMOTION:
-                pass
+         
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
+                bo.update_moves(bo.board)                
                 i,j =click(pos)
                 bo.select(i,j)
 
