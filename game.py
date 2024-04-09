@@ -13,6 +13,7 @@ def redraw_gamewindow():
     global win, bo
 
     win.blit(board,(0,0))
+    
     bo.draw(win)
     
     pygame.display.update()
@@ -35,6 +36,7 @@ def main():
     clock = pygame.time.Clock()    
     run = True
     while run:
+        
         clock.tick(10)
         redraw_gamewindow()
         for event in pygame.event.get():
@@ -46,9 +48,12 @@ def main():
          
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
-                bo.update_moves(bo.board)                
+                bo.update_moves()                
                 i,j =click(pos)
                 bo.select(i,j)
+                bo.update_moves()
+
+                
 
 # Thiet lap man hinh
 width = 750
