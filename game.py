@@ -18,6 +18,29 @@ def redraw_gamewindow():
     
     pygame.display.update()
 
+def end_screen(wim, text):
+    pygame.font.init()
+    font = pygame.font.SysFont("comicsans", 80)
+                
+    txt = font.render(text,1,(255,0,0))
+    win.blit(txt, (width/2 - txt.get_width()/2, 300))
+    pygame.display.update()
+
+    pygame.set_timer(pygame.USEREVENT+1, 5000)
+
+    run = True
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+                run = False
+            elif event.type == pygame.KEYDOWN:
+                run = False
+            elif event.type == pygame.USEREVENT+1:
+                run = False
+    
+
 def click(pos):
     
     x = pos[0]
@@ -32,7 +55,9 @@ def click(pos):
 
 def main():    
     global bo
+    turn = "w"
     bo = Board(8,8)
+    bo.update_moves()
     clock = pygame.time.Clock()    
     run = True
     while run:
@@ -50,10 +75,19 @@ def main():
                 pos = pygame.mouse.get_pos()
                 bo.update_moves()                
                 i,j =click(pos)
-                bo.select(i,j)
+                change = bo.select(i,j, turn)
                 bo.update_moves()
-
+                if change:
+                    if turn == "w":
+                        turn = "b"
+                    else:
+                        turn = "w"
                 
+        if bo.checkMate("w"):
+            end_screen(win, "Black Wins!!")
+        elif bo.checkMate("b"):
+            end_screen(win, "White Wins!!")
+      
 
 # Thiet lap man hinh
 width = 750
