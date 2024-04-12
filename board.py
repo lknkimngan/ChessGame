@@ -71,24 +71,35 @@ class Board:
         return danger_moves
 
 
-    def checkMate(self, color):
+    '''def checkMate(self, color):
         danger_moves = self.get_dander_move(color) 
         king_moves = []
+        block_moves = []
+
         for i in range(self.rows):
             for j in range(self.cols):
                 if self.board[i][j] != 0:
-                    if self.board[i][j].king and self.board[i][j].color == color:
-                        for move in self.board[i][j].move_list:
-                            king_moves.append(move)
+                    if self.board[i][j].color == color:
+                        if self.board[i][j].king:
+
+                            for move in self.board[i][j].move_list:
+                                king_moves.append(move)
+                        else: 
+                            for move in self.board[i][j].move_list:
+                                block_moves.append(move)
 
         if len(king_moves) == 0:
             return False
         
-        for move in king_moves:
-            if move not in danger_moves:
-                return False
+        for block in block_moves:
+            dMoves = danger_moves[:]
+            if block in danger_moves:
+                dMoves.remove(block)
+            for move in king_moves:
+                if move not in dMoves:
+                    return False
             
-        return True
+        return True'''
         
     def is_checked(self, color):
         danger_moves = self.get_dander_move(color) 
@@ -117,15 +128,15 @@ class Board:
         if self.board[row][col] == 0:
             moves = self.board[prev[0]][prev[1]].move_list
             if(col,row) in moves:
-                self.move(prev,(row,col))
-                changed = True
+                changed = self.move(prev,(row,col),color)
+                
             self.reset_selected()
         else:
             if self.board[prev[0]][prev[1]].color != self.board[row][col].color:
                 moves = self.board[prev[0]][prev[1]].move_list
                 if(col,row) in moves:
-                    self.move(prev,(row,col))   
-                    changed = True  
+                    changed = self.move(prev,(row,col),color)   
+                      
                 self.reset_selected()
                 if self.board[row][col].color == color:
                     self.board[row][col].selected = True
@@ -143,7 +154,9 @@ class Board:
         
            
 
-    def move(self, start, end): 
+    def move(self, start, end,color): 
+        checkedBefore = self.is_checked(color)
+        changed = True
         nBoard = self.board[:]
         if nBoard[start[0]][start[1]].pawn:    
             nBoard[start[0]][start[1]].first = False  
@@ -151,7 +164,21 @@ class Board:
         nBoard[start[0]][start[1]].change_pos((end[0], end[1]))
         nBoard[end[0]][end[1]] = nBoard[start[0]][start[1]]
         nBoard[start[0]][start[1]] = 0      
-        self.board = nBoard        
+        self.board = nBoard 
 
         
+        self.update_moves()
+        if self.is_checked(color) or (checkedBefore and self.is_checked(color)): 
+            changed = False
+
+            nBoard = self.board[:]
+            if nBoard[end[0]][end[1]].pawn:    
+                nBoard[end[0]][end[1]].first = True  
+
+            nBoard[end[0]][end[1]].change_pos((start[0], start[1]))
+            nBoard[start[0]][start[1]] = nBoard[end[0]][end[1]]
+            nBoard[end[0]][end[1]] = 0      
+            self.board = nBoard
+        return changed
+            
        

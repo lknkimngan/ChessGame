@@ -1,5 +1,7 @@
 import pygame  
 import os 
+import time
+pygame.font.init()
 from piece import Bishop
 from board import Board
 
@@ -9,13 +11,25 @@ board = pygame.transform.scale(pygame.image.load(os.path.join(os.path.dirname(__
 rect = (113,113,525,525)
 
 #Ve man hinh ban co o vi tri 0,0
-def redraw_gamewindow():
-    global win, bo
+def redraw_gamewindow(win, bo,p1,p2):
+    
 
     win.blit(board,(0,0))
     
     bo.draw(win)
-    
+    formatTime1 = str(p1//60) + ":" + str(p1%60)
+    formatTime2 = str(p2//60) + ":" + str(p2%60)
+    if p1%60 == 0:
+        formatTime1 += "0"
+    if p2%60 == 0:
+        formatTime2 += "0"
+
+    font = pygame.font.SysFont("comicsans", 30)
+                
+    txt = font.render("player 2 Time: "+str(formatTime2),1,(255,255,255))
+    txt2 = font.render("player 1 Time: "+str(formatTime1),1,(255,255,255))
+    win.blit(txt, (450,10))
+    win.blit(txt2, (450,700))
     pygame.display.update()
 
 def end_screen(wim, text):
@@ -26,7 +40,7 @@ def end_screen(wim, text):
     win.blit(txt, (width/2 - txt.get_width()/2, 300))
     pygame.display.update()
 
-    pygame.set_timer(pygame.USEREVENT+1, 5000)
+    pygame.time.set_timer(pygame.USEREVENT+1, 3000)
 
     run = True
     while run:
@@ -53,17 +67,32 @@ def click(pos):
             j = int(divY / (rect[3]/8))
             return i,j
 
-def main():    
-    global bo
+def main():  
+    p1Time = 900
+    p2Time = 900
+    
     turn = "w"
     bo = Board(8,8)
     bo.update_moves()
     clock = pygame.time.Clock()    
     run = True
+    startTime = time.time()
     while run:
-        
         clock.tick(10)
-        redraw_gamewindow()
+        
+       
+        if turn == "w":
+            
+            p1Time -= (time.time() -startTime)
+            
+        else:
+            p2Time -= (time.time() - startTime)
+        
+        startTime = time.time()
+            
+        
+        
+        redraw_gamewindow(win,bo,int(p1Time),int(p2Time))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -78,15 +107,17 @@ def main():
                 change = bo.select(i,j, turn)
                 bo.update_moves()
                 if change:
+                    startTime = time.time()
                     if turn == "w":
                         turn = "b"
+                        
                     else:
                         turn = "w"
                 
-        if bo.checkMate("w"):
-            end_screen(win, "Black Wins!!")
-        elif bo.checkMate("b"):
-            end_screen(win, "White Wins!!")
+        # if bo.checkMate("w"):
+        #     end_screen(win, "Black Wins!!")
+        # elif bo.checkMate("b"):
+        #     end_screen(win, "White Wins!!")
       
 
 # Thiet lap man hinh
