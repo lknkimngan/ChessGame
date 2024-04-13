@@ -10,6 +10,25 @@ board = pygame.transform.scale(pygame.image.load(os.path.join(os.path.dirname(__
 
 rect = (113,113,525,525)
 
+def menu_screen(win):
+    run = True
+
+    while run:
+            win.fill((128,128,128))
+            font = pygame.font.SysFont("comicsans", 80)
+            tittle = font.render("Online Chess!", 1, (0,120,0))
+            win.blit(tittle, (width/2 - tittle.get_width()/2, 200))
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    run = False
+                
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    run = False
+    main()
+
 #Ve man hinh ban co o vi tri 0,0
 def redraw_gamewindow(win, bo,p1,p2):
     
@@ -66,6 +85,8 @@ def click(pos):
             i = int(divX / (rect[2]/8))
             j = int(divY / (rect[3]/8))
             return i,j
+        
+    return -1, -1
 
 def main():  
     p1Time = 900
@@ -78,15 +99,19 @@ def main():
     run = True
     startTime = time.time()
     while run:
-        clock.tick(10)
+        clock.tick(15)
         
        
         if turn == "w":
             
             p1Time -= (time.time() -startTime)
+            if p1Time <= 0:
+                end_screen(win, "Quân đen thắng!")
             
         else:
-            p2Time -= (time.time() - startTime)
+            p2Time -= (time.time() - startTime)  
+            if p2Time <= 0:          
+                end_screen(win, "Quân trắng thắng!")
         
         startTime = time.time()
             
@@ -100,13 +125,14 @@ def main():
                 pygame.quit()
 
          
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONUP:
+                import numpy
                 pos = pygame.mouse.get_pos()
                 bo.update_moves()                
                 i,j =click(pos)
                 change = bo.select(i,j, turn)
-                bo.update_moves()
-                if change:
+                print(numpy.array(bo.board))
+                if change == True:
                     startTime = time.time()
                     if turn == "w":
                         turn = "b"
@@ -114,10 +140,7 @@ def main():
                     else:
                         turn = "w"
                 
-        # if bo.checkMate("w"):
-        #     end_screen(win, "Black Wins!!")
-        # elif bo.checkMate("b"):
-        #     end_screen(win, "White Wins!!")
+    menu_screen()
       
 
 # Thiet lap man hinh
@@ -125,4 +148,5 @@ width = 750
 height = 750
 win = pygame.display.set_mode((width,height))
 pygame.display.set_caption("Chess Game")
-main()
+
+menu_screen(win)

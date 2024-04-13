@@ -414,7 +414,7 @@ class Queen(Piece):
                     moves.append((djL,di))
                     break                
                 else:
-                    break                   
+                    djL = 9                   
                     
             djL+=1
 
@@ -426,7 +426,7 @@ class Queen(Piece):
                     moves.append((djR,di))
                     break
                 else:
-                    break              
+                    djR= -1             
             djR-=1
         
                     
