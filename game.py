@@ -10,6 +10,8 @@ board = pygame.transform.scale(pygame.image.load(os.path.join(os.path.dirname(__
 
 rect = (113,113,525,525)
 
+turn = "w"
+
 def menu_screen(win):
     run = True
 
@@ -17,7 +19,7 @@ def menu_screen(win):
             win.fill((128,128,128))
             font = pygame.font.SysFont("comicsans", 80)
             tittle = font.render("Online Chess!", 1, (0,120,0))
-            win.blit(tittle, (width/2 - tittle.get_width()/2, 200))
+            win.blit(tittle, (width/2 - tittle.get_width()/2, 300))
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -88,11 +90,15 @@ def click(pos):
         
     return -1, -1
 
+def connect():
+    pass
+
 def main():  
+
+    global turn
     p1Time = 900
     p2Time = 900
-    
-    turn = "w"
+
     bo = Board(8,8)
     bo.update_moves()
     clock = pygame.time.Clock()    
@@ -126,19 +132,19 @@ def main():
 
          
             if event.type == pygame.MOUSEBUTTONUP:
-                import numpy
-                pos = pygame.mouse.get_pos()
-                bo.update_moves()                
-                i,j =click(pos)
-                change = bo.select(i,j, turn)
-                print(numpy.array(bo.board))
-                if change == True:
-                    startTime = time.time()
-                    if turn == "w":
-                        turn = "b"
-                        
-                    else:
-                        turn = "w"
+                if(turn == color):
+                    pos = pygame.mouse.get_pos()
+                    bo.update_moves()                
+                    i,j =click(pos)
+                    change = bo.select(i,j, turn)
+
+                    if change == True:
+                        startTime = time.time()
+                        if turn == "w":
+                            turn = "b"
+                            
+                        else:
+                            turn = "w"
                 
     menu_screen()
       
@@ -149,4 +155,5 @@ height = 750
 win = pygame.display.set_mode((width,height))
 pygame.display.set_caption("Chess Game")
 
+bo, color = connect()
 menu_screen(win)
