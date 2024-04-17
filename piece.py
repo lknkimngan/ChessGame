@@ -77,89 +77,83 @@ class Piece:
 
     def __str__(self):
         return str(self.col) + " " + str(self.row)
-    
-    
+
+
 class Bishop(Piece):
     img = 0
+
     def valid_moves(self, board):
         i = self.row
         j = self.col
 
-        moves  = []
+        moves = []
 
-        #TOP RIGHT
-        
-        djL = j+1
-        djR = j-1
-        for di in range(i-1,-1,-1):
+        # TOP RIGHT
+        djL = j + 1
+        djR = j - 1
+        for di in range(i - 1, -1, -1):
             if djL < 8:
                 p = board[di][djL]
-                
-                if p==0:
-                    moves.append((djL,di))
+                if p == 0:
+                    moves.append((djL, di))
                 elif p.color != self.color:
-                    moves.append((djL,di))
+                    moves.append((djL, di))
                     break
                 else:
                     break
-            else: 
+            else:
                 break
-                
-                    
-            djL+=1
 
-        for di in range(i-1,-1,-1):
-            if djR >-1:
+            djL += 1
+
+        for di in range(i - 1, -1, -1):
+            if djR > -1:
                 p = board[di][djR]
-                
-                if p==0:
-                    moves.append((djR,di))
+                if p == 0:
+                    moves.append((djR, di))
                 elif p.color != self.color:
-                    moves.append((djR,di))
+                    moves.append((djR, di))
                     break
-                else: 
+                else:
                     break
             else:
                 break
-            djR-=1
-         #TOP LEFT
-        djL = j+1
-        djR = j-1
-        for di in range(i+1,8):
+
+            djR -= 1
+
+        # TOP LEFT
+        djL = j + 1
+        djR = j - 1
+        for di in range(i + 1, 8):
             if djL < 8:
                 p = board[di][djL]
-                
-                if p==0:
-                    moves.append((djL,di))
+                if p == 0:
+                    moves.append((djL, di))
                 elif p.color != self.color:
-                    moves.append((djL,di))
+                    moves.append((djL, di))
                     break
-                else: 
+                else:
                     break
             else:
                 break
-                
-                    
-            djL+=1
-        for di in range(i+1,8):
+            djL += 1
+        for di in range(i + 1, 8):
+            if djR > -1:
+                p = board[di][djR]
+                if p == 0:
+                    moves.append((djR, di))
+                elif p.color != self.color:
+                    moves.append((djR, di))
+                    break
+                else:
+                    break
+            else:
+                break
 
-            if djR >-1:
-                p = board[di][djR]                
-                if p==0:
-                    moves.append((djR,di))
-                elif p.color != self.color:
-                    moves.append((djR,di))
-                    break
-                else: 
-                    break
-            else:
-                break
-            djR-=1
-        
-                    
-                    
-            
+            djR -= 1
+
         return moves
+
 
 class King(Piece):
     img = 1
@@ -175,62 +169,71 @@ class King(Piece):
         moves = []
 
         if i > 0:
-            #TOP Left
+            # TOP LEFT
             if j > 0:
-                p = board[i-1][j-1]
+                p = board[i - 1][j - 1]
                 if p == 0:
-                    moves.append((j-1, i-1))
+                    moves.append((j - 1, i - 1,))
                 elif p.color != self.color:
-                    moves.append((j-1, i-1))
-            # TOP Middle
-            p = board[i-1][j]
+                    moves.append((j - 1, i - 1,))
+
+            # TOP MIDDLE
+            p = board[i - 1][j]
             if p == 0:
-                moves.append(( j, i-1))
+                moves.append((j, i - 1))
             elif p.color != self.color:
-                moves.append(( j, i-1))
-            #Top Right
+                moves.append((j, i - 1))
+
+            # TOP RIGHT
             if j < 7:
-                p = board[i-1][j+1]
+                p = board[i - 1][j + 1]
                 if p == 0:
-                    moves.append((j+1, i-1))
+                    moves.append((j + 1, i - 1,))
                 elif p.color != self.color:
-                    moves.append((j+1, i-1))
+                    moves.append((j + 1, i - 1,))
+
         if i < 7:
-            #Bottom Left
+            # BOTTOM LEFT
             if j > 0:
-                p = board[i+1][j-1]
+                p = board[i + 1][j - 1]
                 if p == 0:
-                    moves.append((j-1, i+1))
+                    moves.append((j - 1, i + 1,))
                 elif p.color != self.color:
-                    moves.append((j-1, i+1))
-            # Bottom Middle
-            p = board[i+1][j]
+                    moves.append((j - 1, i + 1,))
+
+            # BOTTOM MIDDLE
+            p = board[i + 1][j]
             if p == 0:
-                moves.append((j, i+1))
+                moves.append((j, i + 1))
             elif p.color != self.color:
-                moves.append((j, i+1))
-            #Bottom Right
+                moves.append((j, i + 1))
+
+            # BOTTOM RIGHT
             if j < 7:
-                p = board[i+1][j+1]
+                p = board[i + 1][j + 1]
                 if p == 0:
-                    moves.append((j+1, i+1))
+                    moves.append((j + 1, i + 1))
                 elif p.color != self.color:
-                    moves.append((j+1, i+1))
-        #Middle left
+                    moves.append((j + 1, i + 1))
+
+        # MIDDLE LEFT
         if j > 0:
-            p = board[i][j-1]
+            p = board[i][j - 1]
             if p == 0:
-                moves.append((j-1, i))
+                moves.append((j - 1, i))
             elif p.color != self.color:
-                moves.append((j-1, i))
-        #Middle Right
+                moves.append((j - 1, i))
+
+        # MIDDLE RIGHT
         if j < 7:
-            p = board[i][j+1]
+            p = board[i][j + 1]
             if p == 0:
-                moves.append((j+1, i))
+                moves.append((j + 1, i))
             elif p.color != self.color:
-                moves.append((j+1, i))
+                moves.append((j + 1, i))
+
         return moves
+
 
 class Knight(Piece):
     img = 2
@@ -241,68 +244,72 @@ class Knight(Piece):
 
         moves = []
 
-        #Down Left
+        # DOWN LEFT
         if i < 6 and j > 0:
-            p = board[i+2][j-1]
+            p = board[i + 2][j - 1]
             if p == 0:
-                moves.append((j-1,i+2))
+                moves.append((j - 1, i + 2))
             elif p.color != self.color:
-                moves.append((j-1,i+2))
-        #Up Left
-        if i > 1 and j > 0:
-            p = board[i-2][j-1]
-            if p == 0:
-                moves.append((j-1,i-2))
-            elif p.color != self.color:
-                moves.append((j-1,i-2))
-        # Down Right
-        if i < 6 and j < 7:
-            p = board[i+2][j+1]
-            if p == 0:
-                moves.append((j+1,i+2))
-            elif p.color != self.color:
-                moves.append((j+1,i+2))
+                moves.append((j - 1, i + 2))
 
-        #Up Right
-        if i > 1 and j < 7:
-            p = board[i-2][j+1]
+        # UP LEFT
+        if i > 1 and j > 0:
+            p = board[i - 2][j - 1]
             if p == 0:
-                moves.append((j+1,i-2))
+                moves.append((j - 1, i - 2))
             elif p.color != self.color:
-                moves.append((j+1,i-2))
+                moves.append((j - 1, i - 2))
+
+        # DOWN RIGHT
+        if i < 6 and j < 7:
+            p = board[i + 2][j + 1]
+            if p == 0:
+                moves.append((j + 1, i + 2))
+            elif p.color != self.color:
+                moves.append((j + 1, i + 2))
+
+        # UP RIGHT
+        if i > 1 and j < 7:
+            p = board[i - 2][j + 1]
+            if p == 0:
+                moves.append((j + 1, i - 2))
+            elif p.color != self.color:
+                moves.append((j + 1, i - 2))
 
         if i > 0 and j > 1:
-            p = board[i-1][j-2]
+            p = board[i - 1][j - 2]
             if p == 0:
-                moves.append((j-2,i-1))
+                moves.append((j - 2, i - 1))
             elif p.color != self.color:
-                moves.append((j-2,i-1)) 
-        
+                moves.append((j - 2, i - 1))
+
         if i > 0 and j < 6:
-            p = board[i-1][j+2]
+            p = board[i - 1][j + 2]
             if p == 0:
-                moves.append((j+2,i-1))
+                moves.append((j + 2, i - 1))
             elif p.color != self.color:
-                moves.append((j+2,i-1))
+                moves.append((j + 2, i - 1))
 
         if i < 7 and j > 1:
-            p = board[i+1][j-2]
+            p = board[i + 1][j - 2]
             if p == 0:
-                moves.append((j-2,i+1))
+                moves.append((j - 2, i + 1))
             elif p.color != self.color:
-                moves.append((j-2,i+1))
+                moves.append((j - 2, i + 1))
 
         if i < 7 and j < 6:
-            p = board[i+1][j+2]
+            p = board[i + 1][j + 2]
             if p == 0:
-                moves.append((j+2,i+1))
+                moves.append((j + 2, i + 1))
             elif p.color != self.color:
-                moves.append((j+2,i+1))
+                moves.append((j + 2, i + 1))
 
         return moves
 
+
 class Pawn(Piece):
     img = 3
+
     def __init__(self, row, col, color):
         super().__init__(row, col, color)
         self.first = True
@@ -314,214 +321,232 @@ class Pawn(Piece):
         j = self.col
 
         moves = []
-        if self.color == "b":
-            if i < 7:
-                p = board[i+1][j]
-                if p == 0:
-                    moves.append((j,i+1))
-                #Diagonal
-                if j < 7:
-                    p = board[i+1][j+1]
-                    if p != 0:
-                        if p.color != self.color:
-                            moves.append((j+1,i+1))
-                if j > 0:
-                    p = board[i+1][j-1]
-                    if p != 0:
-                        if p.color != self.color:
-                            moves.append((j-1,i+1))
+        try:
+            if self.color == "b":
+                if i < 7:
+                    p = board[i + 1][j]
+                    if p == 0:
+                        moves.append((j, i + 1))
 
-            if self.first:
-                if i < 6:
-                    p = board[i+2][j]
+                    # DIAGONAL
+                    if j < 7:
+                        p = board[i + 1][j + 1]
+                        if p != 0:
+                            if p.color != self.color:
+                                moves.append((j + 1, i + 1))
+
+                    if j > 0:
+                        p = board[i + 1][j - 1]
+                        if p != 0:
+                            if p.color != self.color:
+                                moves.append((j - 1, i + 1))
+
+                if self.first:
+                    if i < 6:
+                        p = board[i + 2][j]
+                        if p == 0:
+                            if board[i + 1][j] == 0:
+                                moves.append((j, i + 2))
+                        elif p.color != self.color:
+                            moves.append((j, i + 2))
+            # WHITE
+            else:
+
+                if i > 0:
+                    p = board[i - 1][j]
                     if p == 0:
-                        if board[i+1][j] == 0:
-                            moves.append((j,i+2))
-                    elif p.color != self.color:
-                        moves.append((j,i+2))
-        #White
-        else:           
-            if i > 0:
-                p = board[i-1][j]
-                if p == 0:
-                    moves.append((j,i-1))
-            if j < 7:
-                p = board[i-1][j+1]
-                if p != 0:
-                    if p.color != self.color:
-                        moves.append((j+1,i-1))
-            if j > 0:
-                p = board[i-1][j-1]
-                if p != 0:
-                    if p.color != self.color:
-                        moves.append((j-1,i-1))
-            if self.first:
-                if i > 1:
-                    p = board[i-2][j]
-                    if p == 0:
-                        if board[i-1][j] == 0:
-                            moves.append((j,i-2))
-                    elif p.color != self.color:
-                        moves.append((j,i-2))
+                        moves.append((j, i - 1))
+
+                if j < 7:
+                    p = board[i - 1][j + 1]
+                    if p != 0:
+                        if p.color != self.color:
+                            moves.append((j + 1, i - 1))
+
+                if j > 0:
+                    p = board[i - 1][j - 1]
+                    if p != 0:
+                        if p.color != self.color:
+                            moves.append((j - 1, i - 1))
+
+                if self.first:
+                    if i > 1:
+                        p = board[i - 2][j]
+                        if p == 0:
+                            if board[i - 1][j] == 0:
+                                moves.append((j, i - 2))
+                        elif p.color != self.color:
+                            moves.append((j, i - 2))
+        except:
+            pass
+
         return moves
+
 
 class Queen(Piece):
     img = 4
+
     def valid_moves(self, board):
         i = self.row
         j = self.col
 
-        moves  = []
+        moves = []
 
-        #TOP RIGHT
-        
-        djL = j+1
-        djR = j-1
-        for di in range(i-1,-1,-1):
+        # TOP RIGHT
+        djL = j + 1
+        djR = j - 1
+        for di in range(i - 1, -1, -1):
             if djL < 8:
                 p = board[di][djL]
-                
-                if p==0:
-                    moves.append((djL,di))
+                if p == 0:
+                    moves.append((djL, di))
                 elif p.color != self.color:
-                    moves.append((djL,di))
-                    break    
-                else:
-                    djL = 9                  
-            djL+=1
-
-            if djR >-1:
-                p = board[di][djR]
-                
-                if p==0:
-                    moves.append((djR,di))
-                elif p.color != self.color:
-                    moves.append((djR,di))
+                    moves.append((djL, di))
                     break
-                else: 
+                else:
+                    djL = 9
+
+            djL += 1
+
+        for di in range(i - 1, -1, -1):
+            if djR > -1:
+                p = board[di][djR]
+                if p == 0:
+                    moves.append((djR, di))
+                elif p.color != self.color:
+                    moves.append((djR, di))
+                    break
+                else:
                     djR = -1
-            djR-=1
-        #TOP LEFT
-        djL = j+1
-        djR = j-1
-        for di in range(i+1,8):
+
+            djR -= 1
+
+        # TOP LEFT
+        djL = j + 1
+        djR = j - 1
+        for di in range(i + 1, 8):
             if djL < 8:
                 p = board[di][djL]
-                
-                if p==0:
-                    moves.append((djL,di))
+                if p == 0:
+                    moves.append((djL, di))
                 elif p.color != self.color:
-                    moves.append((djL,di))
-                    break                
-                else:
-                    djL = 9                   
-                    
-            djL+=1
-
-            if djR >-1:
-                p = board[di][djR]
-                if p==0:
-                    moves.append((djR,di))
-                elif p.color != self.color:
-                    moves.append((djR,di))
+                    moves.append((djL, di))
                     break
                 else:
-                    djR= -1             
-            djR-=1
-        
-                    
-        # Up
-        for x in range(i-1, -1, -1):
+                    djL = 9
+            djL += 1
+        for di in range(i + 1, 8):
+            if djR > -1:
+                p = board[di][djR]
+                if p == 0:
+                    moves.append((djR, di))
+                elif p.color != self.color:
+                    moves.append((djR, di))
+                    break
+                else:
+                    djR = -1
+
+            djR -= 1
+
+        # UP
+        for x in range(i - 1, -1, -1):
             p = board[x][j]
             if p == 0:
-                moves.append((j,x))
+                moves.append((j, x))
             elif p.color != self.color:
-                moves.append((j,x))
+                moves.append((j, x))
                 break
             else:
-                break 
-        # Down
-        for x in range(i+1, 8, 1):
+                break
+
+        # DOWN
+        for x in range(i + 1, 8, 1):
             p = board[x][j]
             if p == 0:
-                moves.append((j,x))
+                moves.append((j, x))
             elif p.color != self.color:
-                moves.append((j,x))
+                moves.append((j, x))
                 break
             else:
-                break 
-        # Left
-        for x in range(j-1, -1, -1):
+                break
+
+        # LEFT
+        for x in range(j - 1, -1, -1):
             p = board[i][x]
             if p == 0:
-                moves.append((x,i))
+                moves.append((x, i))
             elif p.color != self.color:
-                moves.append((x,i))
+                moves.append((x, i))
                 break
             else:
-                break                     
+                break
 
-
-        # Right  
-        for x in range(j+1, 8, 1):
+        # RIGHT
+        for x in range(j + 1, 8, 1):
             p = board[i][x]
             if p == 0:
-                moves.append((x,i))
+                moves.append((x, i))
             elif p.color != self.color:
-                moves.append((x,i))
+                moves.append((x, i))
                 break
             else:
-                break                   
-            
+                break
+
         return moves
+
 
 class Rook(Piece):
-    img = 5   
+    img = 5
+
     def valid_moves(self, board):
         i = self.row
         j = self.col
 
-        moves  = []
+        moves = []
 
-        # Up
-        for x in range(i-1, -1, -1):
+        # UP
+        for x in range(i - 1, -1, -1):
             p = board[x][j]
             if p == 0:
-                moves.append((j,x))
+                moves.append((j, x))
             elif p.color != self.color:
-                moves.append((j,x))
+                moves.append((j, x))
                 break
             else:
                 break
-        # Down
-        for x in range(i+1, 8, 1):
+
+        # DOWN
+        for x in range(i + 1, 8, 1):
             p = board[x][j]
             if p == 0:
-                moves.append((j,x))
+                moves.append((j, x))
             elif p.color != self.color:
-                moves.append((j,x))    
-                break            
+                moves.append((j, x))
+                break
             else:
                 break
-        # Left
-        for x in range(j-1, -1, -1):
+
+        # LEFT
+        for x in range(j - 1, -1, -1):
             p = board[i][x]
             if p == 0:
-                moves.append((x,i))
+                moves.append((x, i))
             elif p.color != self.color:
-                moves.append((x,i))     
-                break           
+                moves.append((x, i))
+                break
             else:
                 break
-        # Right  
-        for x in range(j+1, 8, 1):
+
+        # RIGHT
+        for x in range(j + 1, 8, 1):
             p = board[i][x]
             if p == 0:
-                moves.append((x,i))
+                moves.append((x, i))
             elif p.color != self.color:
-                moves.append((x,i))   
-                break     
+                moves.append((x, i))
+                break
             else:
                 break
+
         return moves
-        
+
