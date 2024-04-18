@@ -1,13 +1,12 @@
-import pygame  
-import os 
-import time
-pygame.font.init()
-from piece import Bishop
-from board import Board
+# '''
+# the main game
+# author:@techwithtim
+# requirements:see requirements.txt
+# '''
+
 import subprocess
 import sys
 import get_pip
-
 
 def install(package):
     subprocess.call([sys.executable, "-m", "pip", "install", package])
@@ -36,10 +35,14 @@ except:
         except:
             print("[ERROR 1] Pygame could not be installed")
 
+import pygame
+import os
+import time
 from client import Network
 import pickle
+pygame.font.init()
 
-board = pygame.transform.scale(pygame.image.load(os.path.join(os.path.dirname(__file__), "img", "board_alt.png")), (750,750))
+board = pygame.transform.scale(pygame.image.load(os.path.join("img","board_alt.png")), (750, 750))
 chessbg = pygame.transform.scale(pygame.image.load(os.path.join("img", "chessbg.png")), (750,750))
 
 font = pygame.font.Font(None, 50)
@@ -50,6 +53,7 @@ rect = (113,113,525,525)
 
 turn = "w"
 
+
 def menu_screen(win, name):
     global bo, chessbg
     run = True
@@ -58,6 +62,7 @@ def menu_screen(win, name):
     while run:
         win.blit(chessbg, (0,0))
         small_font = pygame.font.SysFont("comicsans", 50)
+        
         if offline:
             off = small_font.render("Server Offline, Try Again Later...", 1, (255, 0, 0))
             win.blit(off, (width / 2 - off.get_width() / 2, 500))
@@ -80,29 +85,27 @@ def menu_screen(win, name):
                     print("Server Offline")
                     offline = True
 
-#Ve man hinh ban co o vi tri 0,0
-def redraw_gamewindow(win, bo,p1,p2, color, ready):
-    
 
-    win.blit(board,(0,0))
     
-    bo.draw(win)
-    formatTime1 = str(p1//60) + ":" + str(p1%60)
-    formatTime2 = str(p2//60) + ":" + str(p2%60)
-    if p1%60 == 0:
-        formatTime1 += "0"
-    if p2%60 == 0:
-        formatTime2 += "0"
+def redraw_gameWindow(win, bo, p1, p2, color, ready):
+    win.blit(board, (0, 0))
+    bo.draw(win, color)
+
+    formatTime1 = str(int(p1//60)) + ":" + str(int(p1%60))
+    formatTime2 = str(int(p2 // 60)) + ":" + str(int(p2 % 60))
+    if int(p1%60) < 10:
+        formatTime1 = formatTime1[:-1] + "0" + formatTime1[-1]
+    if int(p2%60) < 10:
+        formatTime2 = formatTime2[:-1] + "0" + formatTime2[-1]
 
     font = pygame.font.SysFont("comicsans", 30)
-                
     try:
         txt = font.render(bo.p1Name + "\'s Time: " + str(formatTime2), 1, (255, 255, 255))
         txt2 = font.render(bo.p2Name + "\'s Time: " + str(formatTime1), 1, (255,255,255))
     except Exception as e:
         print(e)
-    win.blit(txt, (450,10))
-    win.blit(txt2, (450,700))
+    win.blit(txt, (520,10))
+    win.blit(txt2, (520, 700))
 
     txt = font.render("Press q to Quit", 1, (255, 255, 255))
     win.blit(txt, (10, 20))
@@ -137,12 +140,12 @@ def redraw_gamewindow(win, bo,p1,p2, color, ready):
 
     pygame.display.update()
 
-def end_screen(wim, text):
+
+def end_screen(win, text):
     pygame.font.init()
     font = pygame.font.SysFont("comicsans", 80)
-                
-    txt = font.render(text,1,(255,0,0))
-    win.blit(txt, (width/2 - txt.get_width()/2, 300))
+    txt = font.render(text,1, (255,0,0))
+    win.blit(txt, (width / 2 - txt.get_width() / 2, 300))
     pygame.display.update()
 
     pygame.time.set_timer(pygame.USEREVENT+1, 3000)
@@ -158,30 +161,34 @@ def end_screen(wim, text):
                 run = False
             elif event.type == pygame.USEREVENT+1:
                 run = False
-    
+
 
 def click(pos):
-    
+    """
+    :return: pos (x, y) in range 0-7 0-7
+    """
     x = pos[0]
     y = pos[1]
     if rect[0] < x < rect[0] + rect[2]:
         if rect[1] < y < rect[1] + rect[3]:
             divX = x - rect[0]
-            divY = y - rect[0]
+            divY = y - rect[1]
             i = int(divX / (rect[2]/8))
             j = int(divY / (rect[3]/8))
-            return i,j
-        
+            return i, j
+
     return -1, -1
+
 
 def connect():
     global n
     n = Network()
     return n.board
 
-def main():  
 
+def main():
     global turn, bo, name
+
     color = bo.start_user
     count = 0
 
@@ -254,17 +261,15 @@ def main():
                     bo = n.send("update moves")
                     i, j = click(pos)
                     bo = n.send("select " + str(i) + " " + str(j) + " " + color)
-
+    
     n.disconnect()
     bo = 0
     menu_screen(win)
-      
+
 
 name = input("Please type your name: ")
-# Thiet lap man hinh
 width = 750
 height = 750
-win = pygame.display.set_mode((width,height))
+win = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Chess Game")
-
 menu_screen(win, name)
