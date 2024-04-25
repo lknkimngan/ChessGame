@@ -1,8 +1,3 @@
-# '''
-# the main game
-# author:@techwithtim
-# requirements:see requirements.txt
-# '''
 
 import subprocess
 import sys
@@ -98,7 +93,7 @@ def redraw_gameWindow(win, bo, p1, p2, color, ready):
     if int(p2%60) < 10:
         formatTime2 = formatTime2[:-1] + "0" + formatTime2[-1]
 
-    font = pygame.font.SysFont("comicsans", 30)
+    font = pygame.font.SysFont("comicsans", 25)
     try:
         txt = font.render(bo.p1Name + "\'s Time: " + str(formatTime2), 1, (255, 255, 255))
         txt2 = font.render(bo.p2Name + "\'s Time: " + str(formatTime1), 1, (255,255,255))

@@ -1,3 +1,4 @@
+from http import server
 import socket
 from _thread import *
 from board import Board
@@ -8,7 +9,8 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # server = read("ip_address","r").strip()
 # Địa chỉ IP của máy tính cá nhân
-server = "localhost"
+# server = "localhost"
+server = '172.20.10.2'
 port = 5555
 
 server_ip = socket.gethostbyname(server)
@@ -110,7 +112,8 @@ def threaded_client(conn, game, spec=False):
                         else:
                             bo.time2 = 900 - (time.time() - bo.startTime) - bo.storedTime2
 
-                    sendData = pickle.dumps(bo)
+                    # Gửi thời gian chơi của người chơi
+                    sendData = pickle.dumps(bo) 
                     #print("Sending board to player", currentId, "in game", game)
 
                 conn.sendall(sendData)
