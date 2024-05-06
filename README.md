@@ -11,7 +11,7 @@ Link github: https://github.com/lknkimngan/ChessGame.git
   *	8 Tốt: Tốt là quân cờ yếu nhất, nhưng nó có thể trở thành quân cờ mạnh hơn khi nó tiến đến phần còn lại của bảng.
 * Bên cạnh đó, giao diện game cũng sẽ hiển thị về quân cờ của người chơi là quân nào, lượt đi của người chơi, thời gian từng người, thông báo chiến thắng, thông báo thua.
 Quy tắc để chiến thắng là chiếu bí vua đối phương, bắt vua đối phương hoặc là thời gian kết thúc
-![alt text](image-8.png)
+![alt text](img_readme/image-8.png)
 
 
 ## Yêu cầu
@@ -25,18 +25,29 @@ Quy tắc để chiến thắng là chiếu bí vua đối phương, bắt vua �
 * Bước 1: Mở terminal và chạy lệnh: ip addr show để lấy địa chỉ IPv4 mà máy đang kết nối.
 ⇒ Địa chỉ IPv4 của máy sẽ nằm ở dòng inet 192.168.220.128
 
-![alt text](image.png)
+![alt text](img_readme/image.png)
 * Bước 2: Lấy địa chỉ IP vừa lấy được sau đó dán địa chỉ này vào server = ‘192.168.220.128’ ở file server.py và dòng self.host = ‘192.168.220.128’ ở file client.py. (Địa chỉ IP này sẽ khác trên mỗi máy).
-  ![alt text](image-1.png)
-![alt text](image-2.png)
+  ![alt text](img_readme/image-1.png)
+![alt text](img_readme/image-2.png)
 *Bước 3: Chạy file server.py. Sau đó, mở thêm 2 terminal khác chạy file game.py
-![alt text](image-3.png)
+![alt text](img_readme/image-3.png)
 ⇒ Sau khi chạy 3 terminal trên, ta được kết quả như sau. Sau đó click để chơi game.
-![alt text](image-4.png)
+![alt text](img_readme/image-4.png)
 * Bước 4: Chơi game. Khi chơi, ta có thể thấy được đường đi trước đó của đối thủ được đánh dấu bằng vòng tròn màu xanh. Ngoài ra, ta có xem được thời gian chơi game của 2 người chơi. Nếu muốn thoát game, ta cần nhấn phím “q” để thoát game.
-  ![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
+  ![alt text](img_readme/image-5.png)
+![alt text](img_readme/image-6.png)
+![alt text](img_readme/image-7.png)
 
+## LICENSE
+Giấy Phép MIT
+
+Bản quyền (c) [năm] [tên đầy đủ]
+
+Giấy phép được cấp miễn phí cho mọi người nhận được một bản sao của phần mềm này và các tệp tài liệu liên quan (sau đây gọi là "Phần Mềm"), để giao dịch trong Phần Mềm mà không bị ràng buộc, bao gồm mà không giới hạn các quyền
+sử dụng, sao chép, sửa đổi, hợp nhất, xuất bản, phân phối, cấp phép con và/hoặc bán các bản sao của Phần Mềm, và cho phép người nhận được Phần Mềm thực hiện điều này, với các điều kiện sau đây:
+
+Thông báo bản quyền trên và thông báo giấy phép này sẽ được bao gồm trong tất cả các bản sao hoặc các phần quan trọng của Phần Mềm.
+
+PHẦN MỀM ĐƯỢC CUNG CẤP "NHƯ CÁC BẢN", KHÔNG CÓ BẢO HÀNH NÀO, RÕ RÀNG HOẶC NGỤ Ý, BAO GỒM NHƯNG KHÔNG GIỚI HẠN BẢO HÀNH VỀ CHẤT LƯỢNG, PHÙ HỢP VỚI MỤC ĐÍCH CỤ THỂ VÀ KHÔNG XÂM PHẠM. TRONG BẤT KỲ TRƯỜNG HỢP NÀO, TÁC GIẢ HOẶC CHỦ SỞ HỮU BẢN QUYỀN KHÔNG CHỊU TRÁCH NHIỆM ĐỐI VỚI BẤT KỲ YÊU CẦU, THIỆT HẠI HOẶC CÁC YÊU CẦU PHÁP LÝ KHÁC, DƯỚI HÌNH THỨC HỢP ĐỒNG, TỘI PHẠM HOẶC KHÁC, PHÁT SINH TỪ, HOẶC TRONG KẾT NỐI VỚI PHẦN MỀM HOẶC VIỆC SỬ DỤNG HOẶC CÁC GIAO DỊCH KHÁC TRONG PHẦN MỀM.
 
   
