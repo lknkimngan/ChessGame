@@ -10,7 +10,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # server = read("ip_address","r").strip()
 # Địa chỉ IP của máy tính cá nhân
 # server = "localhost"
-server = '172.20.10.2'
+server = '192.168.5.143'
 port = 5555
 
 server_ip = socket.gethostbyname(server)
