@@ -7,7 +7,7 @@ class Network:
         # AF_INET -> IPv4, SOCK_STREAM-> TCP socket
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # self.host = "localhost"
-        self.host = '192.168.1.10'
+        self.host = '192.168.1.8'
         self.port = 5555
         self.addr = (self.host, self.port)
         self.board = self.connect()
