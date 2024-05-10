@@ -37,8 +37,10 @@ from client import Network
 import pickle
 pygame.font.init()
 
+# vẽ ra giao diện bàn cờ
 board = pygame.transform.scale(pygame.image.load(os.path.join("img","board_alt.png")), (750, 750))
 chessbg = pygame.transform.scale(pygame.image.load(os.path.join("img", "chessbg.png")), (750,750))
+
 
 font = pygame.font.Font(None, 50)
 text_surface = font.render('Click to continue ...', True, (255, 255, 255))  
@@ -55,7 +57,7 @@ def menu_screen(win, name):
     offline = False
 
     while run:
-        win.blit(chessbg, (0,0))
+        win.blit(chessbg, (0,0)) 
         small_font = pygame.font.SysFont("comicsans", 50)
         
         if offline:
@@ -157,7 +159,7 @@ def end_screen(win, text):
             elif event.type == pygame.USEREVENT+1:
                 run = False
 
-
+#Khởi tạo vị trí chuột
 def click(pos):
     """
     :return: pos (x, y) in range 0-7 0-7

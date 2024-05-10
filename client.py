@@ -4,9 +4,10 @@ import time
 
 class Network:
     def __init__(self):
+        # AF_INET -> IPv4, SOCK_STREAM-> TCP socket
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # self.host = "localhost"
-        self.host = '172.20.10.2'
+        self.host = '192.168.1.10'
         self.port = 5555
         self.addr = (self.host, self.port)
         self.board = self.connect()

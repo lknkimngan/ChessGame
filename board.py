@@ -65,10 +65,10 @@ class Board:
 
         self.turn = "w"
 
-        self.time1 = 900
-        self.time2 = 900
-
-        self.storedTime1 = 0
+        self.time1 = 100
+        self.time2 = 100
+        #thời gian chơi
+        self.storedTime1 = 0 
         self.storedTime2 = 0
 
         self.winner = None
@@ -114,8 +114,8 @@ class Board:
         return danger_moves
 
     def is_checked(self, color):
-        self.update_moves()
-        danger_moves = self.get_danger_moves(color)
+        self.update_moves() #cập nhật danh sách các nước đi có thể của tất cả các quân cờ trên bảng
+        danger_moves = self.get_danger_moves(color) # lấy tất cả các nuocw đi của quân cờ đối thủ
         king_pos = (-1, -1)
         for i in range(self.rows):
             for j in range(self.cols):
@@ -225,10 +225,10 @@ class Board:
         return False
 
     def move(self, start, end, color):
-        checkedBefore = self.is_checked(color)
+        checkedBefore = self.is_checked(color) #check vua có an toàn ko 
         changed = True
         nBoard = self.board[:]
-        if nBoard[start[0]][start[1]].pawn:
+        if nBoard[start[0]][start[1]].pawn: 
             nBoard[start[0]][start[1]].first = False
 
         nBoard[start[0]][start[1]].change_pos((end[0], end[1]))

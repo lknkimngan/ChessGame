@@ -49,6 +49,19 @@ class Piece:
     def update_valid_moves(self, board):
         self.move_list = self.valid_moves(board)
 
+    # def draw(self, win, color):
+    #     if self.color == "w":
+    #         drawThis = W[self.img]
+    #     else:
+    #         drawThis = B[self.img]
+
+    #     x = (4 - self.col) + round(self.startX + (self.col * self.rect[2] / 8))
+    #     y = 3 + round(self.startY + (self.row * self.rect[3] / 8))
+
+    #     if self.selected and self.color == color:
+    #         pygame.draw.rect(win, (255, 0, 0), (x, y, 62, 62), 4)
+
+    #     win.blit(drawThis, (x, y))
     def draw(self, win, color):
         if self.color == "w":
             drawThis = W[self.img]
@@ -63,14 +76,15 @@ class Piece:
 
         win.blit(drawThis, (x, y))
 
-        '''if self.selected and self.color == color:  # Remove false to draw dots
+        # dấu chấm gợi ý đường đi
+        if self.selected and self.color == color:
             moves = self.move_list
 
             for move in moves:
                 x = 33 + round(self.startX + (move[0] * self.rect[2] / 8))
                 y = 33 + round(self.startY + (move[1] * self.rect[3] / 8))
-                pygame.draw.circle(win, (255, 0, 0), (x, y), 10)'''
-
+                pygame.draw.circle(win, (255, 0, 0), (x, y), 10)
+        
     def change_pos(self, pos):
         self.row = pos[0]
         self.col = pos[1]
@@ -169,7 +183,7 @@ class King(Piece):
         moves = []
 
         if i > 0:
-            # TOP LEFT
+            # TOP LEFT(kiểm tra hướng phía trên và bên trái- chéo sang trái)
             if j > 0:
                 p = board[i - 1][j - 1]
                 if p == 0:
@@ -177,14 +191,14 @@ class King(Piece):
                 elif p.color != self.color:
                     moves.append((j - 1, i - 1,))
 
-            # TOP MIDDLE
+            # TOP MIDDLE(kiểm tra hướng phía trên)
             p = board[i - 1][j]
             if p == 0:
                 moves.append((j, i - 1))
             elif p.color != self.color:
                 moves.append((j, i - 1))
 
-            # TOP RIGHT
+            # TOP RIGHT(hướng trên và sang phải- chéo qua phải)
             if j < 7:
                 p = board[i - 1][j + 1]
                 if p == 0:
@@ -193,7 +207,7 @@ class King(Piece):
                     moves.append((j + 1, i - 1,))
 
         if i < 7:
-            # BOTTOM LEFT
+            # BOTTOM LEFT(hưới dưới và bên trái)
             if j > 0:
                 p = board[i + 1][j - 1]
                 if p == 0:
@@ -201,14 +215,14 @@ class King(Piece):
                 elif p.color != self.color:
                     moves.append((j - 1, i + 1,))
 
-            # BOTTOM MIDDLE
+            # BOTTOM MIDDLE(hướng dưới)
             p = board[i + 1][j]
             if p == 0:
                 moves.append((j, i + 1))
             elif p.color != self.color:
                 moves.append((j, i + 1))
 
-            # BOTTOM RIGHT
+            # BOTTOM RIGHT(hướng dưới bên phải)
             if j < 7:
                 p = board[i + 1][j + 1]
                 if p == 0:
@@ -216,7 +230,7 @@ class King(Piece):
                 elif p.color != self.color:
                     moves.append((j + 1, i + 1))
 
-        # MIDDLE LEFT
+        # MIDDLE LEFT(qua trái)
         if j > 0:
             p = board[i][j - 1]
             if p == 0:
@@ -234,7 +248,7 @@ class King(Piece):
 
         return moves
 
-
+#mã
 class Knight(Piece):
     img = 2
 
@@ -245,7 +259,7 @@ class Knight(Piece):
         moves = []
 
         # DOWN LEFT
-        if i < 6 and j > 0:
+        if i < 6 and j > 0: # không nằm ở hai hàng cuối cùng và không ở cột đầu tiên của bàn cờ
             p = board[i + 2][j - 1]
             if p == 0:
                 moves.append((j - 1, i + 2))
@@ -253,7 +267,7 @@ class Knight(Piece):
                 moves.append((j - 1, i + 2))
 
         # UP LEFT
-        if i > 1 and j > 0:
+        if i > 1 and j > 0: #không nằm ở hai hàng đầu tiên và không nằm ở cột đầu tiên của bàn cờ.
             p = board[i - 2][j - 1]
             if p == 0:
                 moves.append((j - 1, i - 2))
@@ -261,7 +275,7 @@ class Knight(Piece):
                 moves.append((j - 1, i - 2))
 
         # DOWN RIGHT
-        if i < 6 and j < 7:
+        if i < 6 and j < 7: #không nằm ở hai hàng cuối cùng và không ở cột cuối cùng của bàn cờ
             p = board[i + 2][j + 1]
             if p == 0:
                 moves.append((j + 1, i + 2))
@@ -276,28 +290,28 @@ class Knight(Piece):
             elif p.color != self.color:
                 moves.append((j + 1, i - 2))
 
-        if i > 0 and j > 1:
+        if i > 0 and j > 1: #không nằm ở hàng đầu tiên và không nằm ở hai cột đầu tiên của bàn cờ
             p = board[i - 1][j - 2]
             if p == 0:
                 moves.append((j - 2, i - 1))
             elif p.color != self.color:
                 moves.append((j - 2, i - 1))
 
-        if i > 0 and j < 6:
+        if i > 0 and j < 6: #không nằm ở hàng đầu tiên và không nằm ở hai cột cuối cùng của bàn cờ
             p = board[i - 1][j + 2]
             if p == 0:
                 moves.append((j + 2, i - 1))
             elif p.color != self.color:
                 moves.append((j + 2, i - 1))
 
-        if i < 7 and j > 1:
+        if i < 7 and j > 1: # không nằm ở hàng cuối cùng và không nằm ở hai cột đầu tiên của bàn cờ
             p = board[i + 1][j - 2]
             if p == 0:
                 moves.append((j - 2, i + 1))
             elif p.color != self.color:
                 moves.append((j - 2, i + 1))
 
-        if i < 7 and j < 6:
+        if i < 7 and j < 6: #không nằm ở hàng cuối cùng và không nằm ở hai cột cuối cùng của bàn cờ
             p = board[i + 1][j + 2]
             if p == 0:
                 moves.append((j + 2, i + 1))
@@ -306,7 +320,7 @@ class Knight(Piece):
 
         return moves
 
-
+# tốt
 class Pawn(Piece):
     img = 3
 
@@ -322,7 +336,7 @@ class Pawn(Piece):
 
         moves = []
         try:
-            if self.color == "b":
+            if self.color == "b": #kiểm tra màu
                 if i < 7:
                     p = board[i + 1][j]
                     if p == 0:
@@ -395,8 +409,8 @@ class Queen(Piece):
         # TOP RIGHT
         djL = j + 1
         djR = j - 1
-        for di in range(i - 1, -1, -1):
-            if djL < 8:
+        for di in range(i - 1, -1, -1): # duyệt từ vị trí i-1 giảm dần xuống 0(chéo sang phải)
+            if djL < 8: #kiểm tra xem hậu có nằm trong phạm vi chảu bàn cờ không
                 p = board[di][djL]
                 if p == 0:
                     moves.append((djL, di))
@@ -408,7 +422,7 @@ class Queen(Piece):
 
             djL += 1
 
-        for di in range(i - 1, -1, -1):
+        for di in range(i - 1, -1, -1): #duyệt từ vị trí i-1 giảm dần xuống 0(chéo sang trái)
             if djR > -1:
                 p = board[di][djR]
                 if p == 0:
@@ -424,7 +438,7 @@ class Queen(Piece):
         # TOP LEFT
         djL = j + 1
         djR = j - 1
-        for di in range(i + 1, 8):
+        for di in range(i + 1, 8): #chéo xuống qua phải
             if djL < 8:
                 p = board[di][djL]
                 if p == 0:
@@ -435,7 +449,7 @@ class Queen(Piece):
                 else:
                     djL = 9
             djL += 1
-        for di in range(i + 1, 8):
+        for di in range(i + 1, 8): #chéo xuống dưới qua trái
             if djR > -1:
                 p = board[di][djR]
                 if p == 0:
@@ -449,7 +463,7 @@ class Queen(Piece):
             djR -= 1
 
         # UP
-        for x in range(i - 1, -1, -1):
+        for x in range(i - 1, -1, -1): # đi lên 
             p = board[x][j]
             if p == 0:
                 moves.append((j, x))
@@ -460,7 +474,7 @@ class Queen(Piece):
                 break
 
         # DOWN
-        for x in range(i + 1, 8, 1):
+        for x in range(i + 1, 8, 1): # đi xuống
             p = board[x][j]
             if p == 0:
                 moves.append((j, x))
@@ -471,7 +485,7 @@ class Queen(Piece):
                 break
 
         # LEFT
-        for x in range(j - 1, -1, -1):
+        for x in range(j - 1, -1, -1): #đi qua trái
             p = board[i][x]
             if p == 0:
                 moves.append((x, i))
@@ -482,7 +496,7 @@ class Queen(Piece):
                 break
 
         # RIGHT
-        for x in range(j + 1, 8, 1):
+        for x in range(j + 1, 8, 1): # đi qua phải
             p = board[i][x]
             if p == 0:
                 moves.append((x, i))

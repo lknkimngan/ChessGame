@@ -17,10 +17,15 @@ Quy tắc để chiến thắng là chiếu bí vua đối phương, bắt vua �
 ## Yêu cầu
 * Python 3 <= v3.10.10 (Download from https://www.python.org/downloads/)
 ## Cách cài đặt 
-* $ git clone https://github.com/lknkimngan/ChessGame.git 
+  
+```bash
+ $ git clone https://github.com/lknkimngan/ChessGame.git 
+```
 * Mở thư mục ChessGame mới cài đặt.
-  *  $ python3 -m venv my_env
-  *  $ .\my_env\Scripts\activate
+  ```bash
+    $ python3 -m venv my_env
+   $ .\my_env\Scripts\activate
+  ```
 ## Thực thi chương trình
 * Bước 1: Mở terminal và chạy lệnh: ip addr show để lấy địa chỉ IPv4 mà máy đang kết nối.
 ⇒ Địa chỉ IPv4 của máy sẽ nằm ở dòng inet 192.168.220.128
@@ -41,7 +46,7 @@ Quy tắc để chiến thắng là chiếu bí vua đối phương, bắt vua �
 ## LICENSE
 Giấy Phép MIT
 
-Bản quyền (c) [năm] [tên đầy đủ]
+Bản quyền (c) [2024] [Nguyễn Thị Thu Hà, Lê Kim Ngân, Trương Thị Mai Trinh]
 
 Giấy phép được cấp miễn phí cho mọi người nhận được một bản sao của phần mềm này và các tệp tài liệu liên quan (sau đây gọi là "Phần Mềm"), để giao dịch trong Phần Mềm mà không bị ràng buộc, bao gồm mà không giới hạn các quyền
 sử dụng, sao chép, sửa đổi, hợp nhất, xuất bản, phân phối, cấp phép con và/hoặc bán các bản sao của Phần Mềm, và cho phép người nhận được Phần Mềm thực hiện điều này, với các điều kiện sau đây:
