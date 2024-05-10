@@ -65,8 +65,8 @@ class Board:
 
         self.turn = "w"
 
-        self.time1 = 100
-        self.time2 = 100
+        self.time1 = 900
+        self.time2 = 900
         #thời gian chơi
         self.storedTime1 = 0 
         self.storedTime2 = 0
@@ -145,7 +145,7 @@ class Board:
 
         else:
             if prev == (-1,-1):
-                self.reset_selected()
+                self.reset_selected() 
                 if self.board[row][col] != 0:
                     self.board[row][col].selected = True
             else:
@@ -202,12 +202,12 @@ class Board:
         if nBoard[start[0]][start[1]].pawn: 
             nBoard[start[0]][start[1]].first = False
 
-        nBoard[start[0]][start[1]].change_pos((end[0], end[1]))
+        nBoard[start[0]][start[1]].change_pos((end[0], end[1])) # cập nhật lại vị trí muốn di chuyển đến
         nBoard[end[0]][end[1]] = nBoard[start[0]][start[1]]
         nBoard[start[0]][start[1]] = 0
         self.board = nBoard
 
-        if self.is_checked(color) or (checkedBefore and self.is_checked(color)):
+        if self.is_checked(color) or (checkedBefore and self.is_checked(color)): #kiểm tra bước đi trước đó có bị chiếu hay không hoặc vua có bị chiếu và nước đi trước đó có bị chiếu ko 
             changed = False
             nBoard = self.board[:]
             if nBoard[end[0]][end[1]].pawn:

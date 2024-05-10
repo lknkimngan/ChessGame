@@ -4,10 +4,13 @@ import time
 
 class Network:
     def __init__(self):
-        # AF_INET -> IPv4, SOCK_STREAM-> TCP socket
+
+       
+
+        #AF_INET -> IPv4, SOCK_STREAM-> TCP socket
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # self.host = "localhost"
-        self.host = '192.168.1.8'
+        self.host = '192.168.5.143'
         self.port = 5555
         self.addr = (self.host, self.port)
         self.board = self.connect()
@@ -32,6 +35,7 @@ class Network:
         while time.time() - start_time < 5:
             try:
                 if pick:
+                    #dữ liệu mà được truyền đi thì nó sẽ được serialize
                     self.client.send(pickle.dumps(data))
                 else:
                     self.client.send(str.encode(data))
@@ -44,7 +48,6 @@ class Network:
 
             except socket.error as e:
                 print(e)
-
 
         return reply
 

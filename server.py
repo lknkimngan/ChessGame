@@ -5,12 +5,16 @@ from board import Board
 import pickle
 import time
 
+# AF_INET -> loại địa chỉ socket, SOCK_STREAM -> giao thức truyền dữ liệu TCP.
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # server = read("ip_address","r").strip()
 # Địa chỉ IP của máy tính cá nhân
 # server = "localhost"
+
 server = '192.168.1.8'
+
+
 port = 5555
 
 server_ip = socket.gethostbyname(server)
@@ -33,7 +37,6 @@ specs = 0
 
 bo = Board(8,8)
 
-# Lưu id của người chơi vào file specs.txt
 def read_specs():
     global spectartor_ids
 
@@ -46,6 +49,7 @@ def read_specs():
         print("[ERROR] No specs.txt file found, creating one...")
         open("specs.txt", "w")
 
+# Xử lý các kết nối của các người chơi
 def threaded_client(conn, game, spec=False):
     global pos, games, currentId, connections, specs
 
@@ -60,7 +64,6 @@ def threaded_client(conn, game, spec=False):
 
         bo.start_user = currentId
 
-        # Pickle the object and send it to the server
         data_string = pickle.dumps(bo)
 
         if currentId == "b":
@@ -112,7 +115,7 @@ def threaded_client(conn, game, spec=False):
                         else:
                             bo.time2 = 900 - (time.time() - bo.startTime) - bo.storedTime2
 
-                    # Gửi thời gian chơi của người chơi
+                    # Gửi dữ liệu bàn cờ và thời gian chơi của người chơi
                     sendData = pickle.dumps(bo) 
                     #print("Sending board to player", currentId, "in game", game)
 

@@ -107,6 +107,7 @@ def redraw_gameWindow(win, bo, p1, p2, color, ready):
     txt = font.render("Press q to Quit", 1, (255, 255, 255))
     win.blit(txt, (10, 20))
 
+    # Trạng thái không chơi
     if color == "s":
         txt3 = font.render("SPECTATOR MODE", 1, (255, 0, 0))
         win.blit(txt3, (width/2-txt3.get_width()/2, 10))
@@ -159,7 +160,11 @@ def end_screen(win, text):
             elif event.type == pygame.USEREVENT+1:
                 run = False
 
+<<<<<<< HEAD
 #Khởi tạo vị trí chuột
+=======
+# Hàm trả về giá trị là vị trí của chuột trên bàn cờ
+>>>>>>> 7c8cb5cc7c141c945a9d0c5b1e635cfb917926f7
 def click(pos):
     """
     :return: pos (x, y) in range 0-7 0-7
@@ -239,7 +244,7 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q and color != "s":
-                    # quit game
+                    # quit game (xử lý người chơi nào thắng khi thoát game)
                     if color == "w":
                         bo = n.send("winner b")
                     else:

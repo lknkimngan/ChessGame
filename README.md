@@ -9,7 +9,11 @@ Link github: https://github.com/lknkimngan/ChessGame.git
   * 2 Tượng: Tượng có thể di chuyển trên đường chéo và nó là một quân cờ quan trọng trong game.
   *	2 Mã: Mã có thể di chuyển theo hình chữ L. Nó có khả năng nhảy qua các quân cờ khác.
   *	8 Tốt: Tốt là quân cờ yếu nhất, nhưng nó có thể trở thành quân cờ mạnh hơn khi nó tiến đến phần còn lại của bảng.
+<<<<<<< HEAD
 * Bên cạnh đó, giao diện game cũng sẽ hiển thị về quân cờ của người chơi là quân nào, lượt đi của người chơi, thời gian từng người, thông báo chiến thắng, thông báo thua. Quy tắc để chiến thắng là khi người chơi bên quân nào hết thời gian trước thì bên đó sẽ thua. Ngoài ra, nếu trong quá trình chơi nếu bên nào nhấn nút “q” để thoát trước thì bên đó sẽ là người thua. Bên cạnh đó, bên nào bị chiếu bí trước sẽ là bên thua cuộc.
+=======
+*  Bên cạnh đó, giao diện game cũng sẽ hiển thị về quân cờ của người chơi là quân nào, lượt đi của người chơi, thời gian từng người, thông báo chiến thắng, thông báo thua. Quy tắc để chiến thắng là khi người chơi bên quân nào hết thời gian trước thì bên đó sẽ thua. Ngoài ra, nếu trong quá trình chơi nếu bên nào nhấn nút “q” để thoát trước thì bên đó sẽ là người thua. Bên cạnh đó, bên nào bị chiếu bí trước sẽ là bên thua cuộc.
+>>>>>>> 7c8cb5cc7c141c945a9d0c5b1e635cfb917926f7
 ![alt text](img_readme/image-8.png)
 
 
@@ -44,6 +48,7 @@ Link github: https://github.com/lknkimngan/ChessGame.git
 
 ## LICENSE
 Giấy Phép MIT
+
 
 Bản quyền (c) 2024 Nguyễn Thị Thu Hà, Lê Kim Ngân, Trương Thị Mai Trinh
 
