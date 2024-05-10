@@ -65,6 +65,7 @@ class Board:
 
         self.turn = "w"
 
+        # Khởi tạo thời gian chơi của mỗi người chơi là 900s (15')
         self.time1 = 900
         self.time2 = 900
 
@@ -73,6 +74,7 @@ class Board:
 
         self.winner = None
 
+        # Thời gian bắt đầu chơi
         self.startTime = time.time()
 
     def update_moves(self):
@@ -113,6 +115,7 @@ class Board:
 
         return danger_moves
 
+    # Kiểm tra vua có bị chiếu không
     def is_checked(self, color):
         self.update_moves()
         danger_moves = self.get_danger_moves(color)
@@ -133,6 +136,7 @@ class Board:
         prev = (-1, -1)
         for i in range(self.rows):
             for j in range(self.cols):
+                # kiểm tra xem có chứa quân cờ nào không
                 if self.board[i][j] != 0:
                     if self.board[i][j].selected:
                         prev = (i, j)
@@ -144,10 +148,12 @@ class Board:
                 changed = self.move(prev, (row, col), color)
 
         else:
+            # nước đi lần đầu tiên
             if prev == (-1,-1):
                 self.reset_selected()
                 if self.board[row][col] != 0:
                     self.board[row][col].selected = True
+            
             else:
                 if self.board[prev[0]][prev[1]].color != self.board[row][col].color:
                     moves = self.board[prev[0]][prev[1]].move_list
@@ -161,9 +167,12 @@ class Board:
                     if self.board[row][col].color == color:
                         #castling
                         self.reset_selected()
+
+                        # Điều kiện: quân cờ trước đó chưa di chuyển; quân cờ trước đó là quân ngựa và quân cờ được chọn là vua và quân ngựa đó chưa được di chuyển từ lúc bắt đầu trò chơi
                         if self.board[prev[0]][prev[1]].moved == False and self.board[prev[0]][prev[1]].rook and self.board[row][col].king and col != prev[1] and prev!=(-1,-1):
                             castle = True
                             if prev[1] < col:
+                                # kiểm tra xem giữa ngựa và vua có quân cờ nào không, nếu có thì không phải là trường hợp castling
                                 for j in range(prev[1]+1, col):
                                     if self.board[row][j] != 0:
                                         castle = False
@@ -196,6 +205,7 @@ class Board:
                 self.turn = "w"
                 self.reset_selected()
 
+    # Cập nhật lại bàn cờ không có quân cờ nào được chọn
     def reset_selected(self):
         for i in range(self.rows):
             for j in range(self.cols):
@@ -203,7 +213,7 @@ class Board:
                     self.board[i][j].selected = False
 
     def check_mate(self, color):
-        '''if self.is_checked(color):
+        if self.is_checked(color):
             king = None
             for i in range(self.rows):
                 for j in range(self.cols):
@@ -220,26 +230,31 @@ class Board:
                 for move in valid_moves:
                     if move in danger_moves:
                         danger_count += 1
-                return danger_count == len(valid_moves)'''
+                return danger_count == len(valid_moves)
 
         return False
 
     def move(self, start, end, color):
         checkedBefore = self.is_checked(color)
         changed = True
+        # Tạo bản sao cho bàn cờ
         nBoard = self.board[:]
+        # Kiểm tra quân tốt có phải là quân đi đầu tiên không, nếu đúng thì nó đã được đi trước đó và chỉ đi 1 ô sau đó.
         if nBoard[start[0]][start[1]].pawn:
             nBoard[start[0]][start[1]].first = False
-
+        # Câp nhật vị trí mới của quân cờ khi di chuyển
         nBoard[start[0]][start[1]].change_pos((end[0], end[1]))
         nBoard[end[0]][end[1]] = nBoard[start[0]][start[1]]
         nBoard[start[0]][start[1]] = 0
         self.board = nBoard
 
+        # Điều kiện: quân vua bị chiếu sau nước đi mới hoặc là đã bị chiếu trước đó và vẫn bị chiếu sau đó
         if self.is_checked(color) or (checkedBefore and self.is_checked(color)):
+            # Nước đi không hợp lệ
             changed = False
             nBoard = self.board[:]
             if nBoard[end[0]][end[1]].pawn:
+                # quân tốt chưa được di chuyển trước đó.
                 nBoard[end[0]][end[1]].first = True
 
             nBoard[end[0]][end[1]].change_pos((start[0], start[1]))
@@ -252,6 +267,7 @@ class Board:
         self.update_moves()
         if changed:
             self.last = [start, end]
+            # Tính thời gian chơi
             if self.turn == "w":
                 self.storedTime1 += (time.time() - self.startTime)
             else:
@@ -259,6 +275,7 @@ class Board:
             self.startTime = time.time()
 
         return changed
+
 
 
 

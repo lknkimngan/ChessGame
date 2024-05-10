@@ -238,7 +238,7 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q and color != "s":
-                    # quit game
+                    # quit game (xử lý người chơi nào thắng khi thoát game)
                     if color == "w":
                         bo = n.send("winner b")
                     else:
